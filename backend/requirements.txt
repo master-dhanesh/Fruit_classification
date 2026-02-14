@@ -6,3 +6,5 @@ tensorflow>=2.15.0
 Pillow>=10.0.0
 python-multipart
 prometheus-client>=0.20.0
+evidently>=0.4.0
+pandas>=2.0.0

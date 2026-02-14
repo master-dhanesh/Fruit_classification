@@ -7,6 +7,7 @@ from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 import time
 
 from src.metrics import REQUEST_COUNT, REQUEST_LATENCY, PREDICTION_COUNT
+from src.prediction_log import log_prediction
 
 
 from src.inference import predict
@@ -42,6 +43,7 @@ async def predict_route(file: UploadFile = File(...)):
     image = Image.open(io.BytesIO(content))
     result = predict(image)
     PREDICTION_COUNT.labels(label=result["label"]).inc()
+    log_prediction(file.filename, result["label"], result["confidence"])
     return result
 
 
