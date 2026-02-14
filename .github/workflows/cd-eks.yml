@@ -52,6 +52,11 @@ jobs:
               run: |
                   aws eks update-kubeconfig --name fruit-eks --region $AWS_REGION
 
+            - name: Verify cluster access
+              run: |
+                  kubectl get nodes
+                  kubectl get deployment fruit-backend || true
+
             - name: Deploy (rolling update)
               env:
                   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
